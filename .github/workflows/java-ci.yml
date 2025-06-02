@@ -1,0 +1,19 @@
+name: Java CI
+on: [push, pull_request]  # 触发事件
+
+jobs:
+  build:
+    runs-on: ubuntu-latest   # 使用最新版 Ubuntu 系统
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # 构建和测试（根据项目选择 Maven 或 Gradle）
+      - name: Build and test with Maven
+        run: mvn -B test --file pom.xml  # Maven 项目
+
+    # 可选：Gradle 项目使用
+    # - name: Grant Gradle permission
+    #   run: chmod +x gradlew
+    # - name: Build with Gradle
+    #   run: ./gradlew test
