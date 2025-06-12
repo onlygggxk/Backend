@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.psychology.api.dao.HealthyDao">
+
+    <select id="findList" parameterType="com.psychology.api.dto.HealthyDTO" resultType="com.psychology.api.dto.HealthyDTO">
+        select
+        healthy.*,
+        users.stu_name as name
+        from healthy healthy
+        left join student users on healthy.stu_id = users.id
+        <where>
+            <if test="id != null and id != ''">and healthy.id = #{id}</if>
+            <if test="stuId != null and stuId != ''">and healthy.stu_id = #{stuId}</if>
+            <if test="height != null and height != ''">and healthy.height = #{height}</if>
+            <if test="weight != null and weight != ''">and healthy.weight = #{weight}</if>
+            <if test="eyesight != null and eyesight != ''">and healthy.eyesight = #{eyesight}</if>
+            <if test="ulseRate != null and ulseRate != ''">and healthy.ulse_rate = #{ulseRate}</if>
+            <if test="bloodPressure != null and bloodPressure != ''">and healthy.blood_pressure = #{bloodPressure}</if>
+            <if test="heartRate != null and heartRate != ''">and healthy.heart_rate = #{heartRate}</if>
+            <if test="breath != null and breath != ''">and healthy.breath = #{breath}</if>
+            <if test="bloodSugar != null and bloodSugar != ''">and healthy.blood_sugar = #{bloodSugar}</if>
+            <if test="bloodLipid != null and bloodLipid != ''">and healthy.blood_lipid = #{bloodLipid}</if>
+            <if test="monthDay != null and monthDay != ''">and healthy.month_day = #{monthDay}</if>
+            <if test="createTime != null and createTime != ''">and healthy.create_time = #{createTime}</if>
+            <if test="name != null and name != ''">and users.stu_name like concat('%',#{name},'%')</if>
+        </where>
+        order by month_day asc
+        <if test="current != null and pageSize != null">
+            limit #{current},#{pageSize}
+        </if>
+    </select>
+
+    <select id="findPageCount" parameterType="com.psychology.api.dto.HealthyDTO" resultType="java.lang.Integer">
+        select count(*) from healthy healthy
+        left join student users on healthy.stu_id = users.id
+        <where>
+            <if test="id != null and id != ''">and healthy.id = #{id}</if>
+            <if test="stuId != null and stuId != ''">and healthy.stu_id = #{stuId}</if>
+            <if test="height != null and height != ''">and healthy.height = #{height}</if>
+            <if test="weight != null and weight != ''">and healthy.weight = #{weight}</if>
+            <if test="eyesight != null and eyesight != ''">and healthy.eyesight = #{eyesight}</if>
+            <if test="ulseRate != null and ulseRate != ''">and healthy.ulse_rate = #{ulseRate}</if>
+            <if test="bloodPressure != null and bloodPressure != ''">and healthy.blood_pressure = #{bloodPressure}</if>
+            <if test="heartRate != null and heartRate != ''">and healthy.heart_rate = #{heartRate}</if>
+            <if test="breath != null and breath != ''">and healthy.breath = #{breath}</if>
+            <if test="bloodSugar != null and bloodSugar != ''">and healthy.blood_sugar = #{bloodSugar}</if>
+            <if test="bloodLipid != null and bloodLipid != ''">and healthy.blood_lipid = #{bloodLipid}</if>
+            <if test="monthDay != null and monthDay != ''">and healthy.month_day = #{monthDay}</if>
+            <if test="createTime != null and createTime != ''">and healthy.create_time = #{createTime}</if>
+            <if test="name != null and name != ''">and users.stu_name like concat('%',#{name},'%')</if>
+        </where>
+    </select>
+
+</mapper>
